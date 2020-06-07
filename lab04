@@ -1,0 +1,273 @@
+#include <iostream>
+
+using namespace std;
+
+class CompTecnicaEspecial {
+public:
+    virtual void tecnicaEspecial() = 0;
+    CompTecnicaEspecial(){}
+    virtual ~CompTecnicaEspecial(){}
+};
+//-------------------------------------------------------------------------------------------------------------
+//---------------------------------------------INTERFAZ COMPGOLPEPATADA----------------------------------------
+//-------------------------------------------------------------------------------------------------------------
+class CompGolpePatada {
+public:
+    virtual void patada() = 0;
+    CompGolpePatada(){}
+    virtual ~CompGolpePatada(){}
+};
+//-------------------------------------------------------------------------------------------------------------
+//---------------------------------------------INTERFAZ COMPPODER----------------------------------------
+//-------------------------------------------------------------------------------------------------------------
+class CompPoder {
+public:
+    virtual void poder() = 0;
+    CompPoder(){}
+    virtual ~CompPoder(){}
+};
+//-------------------------------------------------------------------------------------------------------------
+//---------------------------------------------CLASE GENKIDAMA-------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------
+class Genkidama : public CompTecnicaEspecial {
+   public:
+    virtual void tecnicaEspecial(){
+        cout<<"Por favor todos los seres vivos, de este planeta, del sol y de las estrellas, plantas y animales, por favor brindenme un poco de su energia!!!!!"<<endl;
+        cout<<"Ha usado la genkidama!!"<<endl;
+    }
+    Genkidama(){}
+    ~Genkidama(){}
+};
+//-------------------------------------------------------------------------------------------------------------
+//---------------------------------------------CLASE RASENGAN--------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------
+class Rasengan : public CompTecnicaEspecial {
+   public:
+    virtual void tecnicaEspecial(){
+        cout<<"Rasengan!!!!!"<<endl;
+        cout<<"Ha usado rasengan!!"<<endl;
+    }
+    Rasengan(){}
+    ~Rasengan(){}
+};
+//-------------------------------------------------------------------------------------------------------------
+//---------------------------------------------CLASE BANKAI----------------------------------------
+//-------------------------------------------------------------------------------------------------------------
+class Bankai :public CompTecnicaEspecial {
+   public:
+    virtual void tecnicaEspecial(){
+        cout<<"Ha usado Bankai!!!!!"<<endl;
+        cout<<"Fuerza y velocidad + 200!!"<<endl;
+    }
+    Bankai(){}
+    ~Bankai(){}
+};
+//-------------------------------------------------------------------------------------------------------------
+//---------------------------------------------CLASE PATADABAJA----------------------------------------
+//-------------------------------------------------------------------------------------------------------------
+class PatadaBaja :public CompGolpePatada {
+   public:
+    virtual void patada(){
+        cout<<"Ha usado patada baja!"<<endl;
+        cout<<"Golpe en la rodilla, le desencajó la rotula!"<<endl;
+    }
+    PatadaBaja(){}
+    ~PatadaBaja(){}
+};
+//-------------------------------------------------------------------------------------------------------------
+//---------------------------------------------CLASE PATADAMEDIA----------------------------------------
+//-------------------------------------------------------------------------------------------------------------
+class PatadaMedia :public CompGolpePatada {
+   public:
+    virtual void patada(){
+        cout<<"Ha usado patada media!"<<endl;
+        cout<<"Golpe grave en zona abdominal!"<<endl;
+    }
+    PatadaMedia(){}
+    ~PatadaMedia(){}
+};
+//-------------------------------------------------------------------------------------------------------------
+//---------------------------------------------CLASE PATADAALTA----------------------------------------
+//-------------------------------------------------------------------------------------------------------------
+class PatadaAlta :public CompGolpePatada {
+   public:
+    virtual void patada(){
+        cout<<"Ha usado patada alta!"<<endl;
+        cout<<"Golpe grave en la cabeza, enemigo en shok!"<<endl;
+    }
+    PatadaAlta(){}
+    ~PatadaAlta(){}
+};
+//-------------------------------------------------------------------------------------------------------------
+//---------------------------------------------CLASE KAMEHAMEHA----------------------------------------
+//-------------------------------------------------------------------------------------------------------------
+class KameHameHa :public CompPoder {
+   public:
+    virtual void poder(){
+        cout<<"Ha usado Kame-Hame-Ha!"<<endl;
+        cout<<"Enemigo impactado, pierde un brazo.!"<<endl;
+    }
+    KameHameHa(){}
+    ~KameHameHa(){}
+};
+//-------------------------------------------------------------------------------------------------------------
+//---------------------------------------------CLASE ADOKEN----------------------------------------
+//-------------------------------------------------------------------------------------------------------------
+class AdoKen :public CompPoder {
+   public:
+    virtual void poder(){
+        cout<<"Ha usado Ado-Ken!"<<endl;
+        cout<<"Daño grave, enemigo aturdido!"<<endl;
+    }
+    AdoKen(){}
+    ~AdoKen(){}
+};
+//-------------------------------------------------------------------------------------------------------------
+//---------------------------------------------CLASE BOLADEFUEGO----------------------------------------
+//-------------------------------------------------------------------------------------------------------------
+class FireBall :public CompPoder {
+   public:
+    virtual void poder(){
+        cout<<"Ha usado FireBall!"<<endl;
+        cout<<"Quemaduras de tercer grado en enemigo!"<<endl;
+    }
+    FireBall(){}
+    ~FireBall(){}
+};
+//-------------------------------------------------------------------------------------------------------------
+//---------------------------------------------CLASE LUCHADOR----------------------------------------
+//-------------------------------------------------------------------------------------------------------------
+class Luchador{
+   public:
+     CompTecnicaEspecial *ptrTecnicaEspecial;
+     CompGolpePatada *ptrCompGolpePatada;
+     CompPoder *ptrComPoder;
+     virtual void saludo(){}
+     void ejecutarEspecial(){
+         ptrTecnicaEspecial->tecnicaEspecial();
+     }
+     void ejecutarPatada(){
+         ptrCompGolpePatada->patada();
+     }
+     void ejecutarPoder(){
+         ptrComPoder->poder();
+     }
+     Luchador(){}
+     virtual ~Luchador(){
+         delete ptrComPoder;
+         delete ptrCompGolpePatada;
+         delete ptrTecnicaEspecial;
+     }
+};
+//-------------------------------------------------------------------------------------------------------------
+//---------------------------------------------CLASE GOKU----------------------------------------
+//-------------------------------------------------------------------------------------------------------------
+class Goku : public Luchador{
+   public:
+    void saludo(){
+        cout<<"Hola, soy Goku, preparate para ser derrotado!!!"<<endl;
+    }
+    Goku(){
+         ptrTecnicaEspecial = new Genkidama;
+         ptrCompGolpePatada = new PatadaBaja;
+         ptrComPoder = new KameHameHa;
+    }
+    ~Goku(){
+        delete ptrTecnicaEspecial;
+        delete ptrComPoder;
+        delete ptrCompGolpePatada;
+    }
+};
+//-------------------------------------------------------------------------------------------------------------
+//---------------------------------------------CLASE NARUTO----------------------------------------
+//-------------------------------------------------------------------------------------------------------------
+class Naruto :public Luchador{
+   public:
+
+    virtual void saludo(){
+        cout<<"Hola, soy Naruto, y voy a ser el Hokage!!!"<<endl;
+    }
+     Naruto(){
+         ptrTecnicaEspecial = new Rasengan;
+         ptrCompGolpePatada = new PatadaMedia;
+         ptrComPoder = new AdoKen;
+     }
+     ~Naruto(){
+         delete ptrTecnicaEspecial;
+         delete ptrComPoder;
+         delete ptrCompGolpePatada;
+     }
+};
+//-------------------------------------------------------------------------------------------------------------
+//---------------------------------------------CLASE ICHIGO----------------------------------------
+//-------------------------------------------------------------------------------------------------------------
+class Ichigo :public Luchador{
+   public:
+
+    virtual void saludo(){
+        cout<<"Hola, soy Ichigo, y voy a liberarte de tu castigo!!!"<<endl;
+    }
+     Ichigo(){
+         ptrTecnicaEspecial = new Bankai;
+         ptrCompGolpePatada = new PatadaAlta;
+         ptrComPoder = new FireBall;
+     }
+     ~Ichigo(){
+         delete ptrTecnicaEspecial;
+         delete ptrComPoder;
+         delete ptrCompGolpePatada;
+     }
+};
+
+
+//-------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------MAIN------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------
+int main()
+{
+    int entrada;
+    Luchador *ptr;
+
+    do {
+        cout<<"-----------------------------------------------------------------------------------------------"<<endl;
+        cout<<"-----------------------------------------Martol Kambot-----------------------------------------"<<endl;
+        cout<<"-----------------------------------------------------------------------------------------------"<<endl;
+        cout<<"Elige un personaje."<<endl;
+        cout<<"1. Goku."<<endl;
+        cout<<"2. Naruto."<<endl;
+        cout<<"3. Ichigo."<<endl;
+        cin>>entrada;
+        switch (entrada) {
+        case 1:{
+            ptr = new Goku();
+            ptr->saludo();
+            ptr->ejecutarEspecial();
+            ptr->ejecutarPatada();
+            ptr->ejecutarPoder();
+            break;
+        }case 2:{
+            ptr = new Naruto();
+            ptr->saludo();
+            ptr->ejecutarEspecial();
+            ptr->ejecutarPatada();
+            ptr->ejecutarPoder();
+            break;
+        }case 3:{
+            ptr = new Ichigo();
+            ptr->saludo();
+            ptr->ejecutarEspecial();
+            ptr->ejecutarPatada();
+            ptr->ejecutarPoder();
+            break;
+        }
+        }
+        cout<<""<<endl;
+        cout<<""<<endl;
+        cout<<""<<endl;
+        cout<<"Crear otro personaje"<<endl;
+        cout<<"0. SI"<<endl;
+        cout<<"Otro digito. NO"<<endl;
+        cin>>entrada;
+    } while (entrada==0);
+    ptr->~Luchador();
+}
